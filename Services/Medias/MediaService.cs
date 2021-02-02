@@ -45,7 +45,7 @@ namespace HobbyApp.Services.Medias {
                 }
             }
 
-            Media media = new Media(mediaDTO.TVMazeId, mediaDTO.Type, reviews.ToArray());
+            Media media = new Media(mediaDTO.TVMazeId, mediaDTO.finishedWatching, mediaDTO.Type, reviews.ToArray());
 
             this._repo.Create(media);
 

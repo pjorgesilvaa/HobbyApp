@@ -14,6 +14,7 @@ namespace HobbyApp.Mappers {
             return new MediaDTO(
                 media.Id,
                 media.ExternalApiId,
+                media.FinishedWaching,
                 media.Type,
                 Array.ConvertAll(media.Reviews, delegate(Review r) {return rm.ToDTO(r);}),
                 media.CreatedAt,

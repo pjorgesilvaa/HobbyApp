@@ -7,6 +7,8 @@ namespace HobbyApp.DTO.Medias {
         public string Id { get; set; }
         [JsonProperty("ExternalApiId")]
         public int ExternalApiId { get; set; }
+        [JsonProperty("FinishedWatching")]
+        public string FinishedWatching { get; set; }
         [JsonProperty("Reviews")]
         public ReviewDTO[] Reviews { get; set; }
         [JsonProperty("Type")]
@@ -16,9 +18,10 @@ namespace HobbyApp.DTO.Medias {
         [JsonProperty("LastUpdated")]
         public string LastUpdated { get; set; }
 
-        public MediaDTO(string id, int externalApiId, int type, ReviewDTO[] reviews, string createdAt, string lastUpdated) {
+        public MediaDTO(string id, int externalApiId, string finishedWatching, int type, ReviewDTO[] reviews, string createdAt, string lastUpdated) {
             this.Id = id;
             this.ExternalApiId = externalApiId;
+            this.FinishedWatching = finishedWatching;
             this.Type = type;
             this.Reviews = reviews;
             this.CreatedAt = createdAt;
