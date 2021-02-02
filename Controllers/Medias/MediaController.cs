@@ -34,7 +34,7 @@ namespace HobbyApp.Controllers.Medias {
             try {
                 MediaDTO media = await _MediaService.Create(createMedia);
 
-                return CreatedAtRoute("GetMedia",  new { id = media.ID }, media);
+                return CreatedAtRoute("GetMedia", new { id = media.Id.ToString() }, "»»» Media successfully created! «««");
             } catch (Exception ex) {
                 return BadRequest(ex.Message);
             }
@@ -60,7 +60,7 @@ namespace HobbyApp.Controllers.Medias {
                 return NotFound("»»» [" + id + "] - Media not found! «««");
             }
 
-            _MediaService.RemoveByID(media.ID);
+            _MediaService.RemoveByID(media.Id);
             return NoContent();
         }
     }

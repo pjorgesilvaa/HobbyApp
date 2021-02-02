@@ -1,9 +1,10 @@
 using Newtonsoft.Json;
+using HobbyApp.DTO.Reviews;
 
 namespace HobbyApp.DTO.Medias {
     public class MediaDTO {
         [JsonProperty("ID")]
-        public string ID { get; set; }
+        public string Id { get; set; }
         [JsonProperty("Score")]
         public double Score { get; set; }
         [JsonProperty("Name")]
@@ -20,11 +21,13 @@ namespace HobbyApp.DTO.Medias {
         public string Picture { get; set; }
         [JsonProperty("Summary")]
         public string Summary { get; set; }
+        [JsonProperty("Reviews")]
+        public ReviewDTO[] Reviews { get; set; }
         [JsonProperty("Type")]
         public int Type { get; set; }
 
-        public MediaDTO(string id, double score, string name, string[] genres, string status, string premiered, string network, string picture, string summary, int type) {
-            this.ID = id;
+        public MediaDTO(string id, double score, string name, string[] genres, string status, string premiered, string network, string picture, string summary, int type, ReviewDTO[] reviews) {
+            this.Id = id;
             this.Score = score;
             this.Name = name;
             this.Genres = genres;
@@ -34,6 +37,7 @@ namespace HobbyApp.DTO.Medias {
             this.Picture = picture;
             this.Summary = summary;
             this.Type = type;
+            this.Reviews = reviews;
         }
     }
 }

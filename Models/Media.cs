@@ -1,8 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-
 using HobbyApp.Exceptions;
-using HobbyApp.DTO.Medias;
 
 namespace HobbyApp.Models {
     public class Media {
@@ -27,10 +25,12 @@ namespace HobbyApp.Models {
         public string Picture { get; set; }
         [BsonElement("Summary")]
         public string Summary { get; set; }
+        [BsonElement("Reviews")]
+        public Review[] Reviews { get; set; }
         [BsonElement("Type")]
         public int Type { get; set; }
 
-        public Media(int tvMazeId, double score, string name, string[] genres, string status, string premiered, string network, string picture, string summary, int type) {
+        public Media(int tvMazeId, double score, string name, string[] genres, string status, string premiered, string network, string picture, string summary, int type, Review[] reviews = null) {
             this.TVMazeId = tvMazeId;
             this.Score = score;
             this.Name = name;
@@ -41,9 +41,10 @@ namespace HobbyApp.Models {
             this.Picture = picture;
             this.Summary = summary;
             ChangeType(type);
+            this.Reviews = reviews ?? new Review[0];
         }
 
-        public Media(string id, int tvMazeId, double score, string name, string[] genres, string status, string premiered, string network, string picture, string summary, int type) {
+        public Media(string id, int tvMazeId, double score, string name, string[] genres, string status, string premiered, string network, string picture, string summary, int type, Review[] reviews = null) {
             this.Id = id;
             this.TVMazeId = tvMazeId;
             this.Score = score;
@@ -55,10 +56,11 @@ namespace HobbyApp.Models {
             this.Picture = picture;
             this.Summary = summary;
             ChangeType(type);
+            this.Reviews = reviews ?? new Review[0];
         }
         public void ChangeType(int type) {
-            if (type < 1)
-                throw new BusinessRuleValidationException("XXX Show type is invalid. XXX");
+            if (type < 1 || type > 3)
+                throw new BusinessRuleValidationException("Show type is invalid.");
 
             this.Type = type;
         }

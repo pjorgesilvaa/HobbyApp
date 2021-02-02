@@ -39,15 +39,20 @@ namespace HobbyApp.Services.Medias {
 
         public async Task<MediaDTO> Create(CreateMediaDTO mediaDTO) {
 
-            Console.WriteLine(this._config.GetValue<string>("TVMaze"+ "shows/" + mediaDTO.TVMazeId));
-
             HttpResponseMessage response = await HttpClient.GetAsync(this._config.GetValue<string>("TVMaze") + "shows/" + mediaDTO.TVMazeId);
             var TVMazeDTO = JsonConvert.DeserializeObject<TVMazeDTO>(response.Content.ReadAsStringAsync().Result);
 
-            System.DateTime dt= Convert.ToDateTime(TVMazeDTO.Premiered,new CultureInfo("en-US"));
+            System.DateTime dt = Convert.ToDateTime(TVMazeDTO.Premiered, new CultureInfo("en-US"));
             TVMazeDTO.Premiered = dt.ToString("dd-MM-yyyy");
 
-            Media media = new Media(TVMazeDTO.Id, TVMazeDTO.Rating.Average, TVMazeDTO.Name, TVMazeDTO.Genres.ToArray(), TVMazeDTO.Status, TVMazeDTO.Premiered, TVMazeDTO.Network.Name, TVMazeDTO.Image.Medium, TVMazeDTO.Summary, mediaDTO.Type);
+            List<Review> reviews = new List<Review>();
+            if (mediaDTO.Reviews.Length > 0) {
+                foreach (var r in mediaDTO.Reviews) {
+                    reviews.Add(new Review(r.Subject, r.Score, r.Description));
+                }
+            }
+
+            Media media = new Media(TVMazeDTO.Id, TVMazeDTO.Rating.Average, TVMazeDTO.Name, TVMazeDTO.Genres.ToArray(), TVMazeDTO.Status, TVMazeDTO.Premiered, TVMazeDTO.Network.Name, TVMazeDTO.Image.Medium, TVMazeDTO.Summary, mediaDTO.Type, reviews.ToArray());
 
             this._repo.Create(media);
 
@@ -59,7 +64,14 @@ namespace HobbyApp.Services.Medias {
             HttpResponseMessage response = await HttpClient.GetAsync(this._config.GetValue<string>("TVMaze") + "shows/" + mediaIn.TVMazeId);
             var TVMazeDTO = JsonConvert.DeserializeObject<TVMazeDTO>(response.Content.ReadAsStringAsync().Result);
 
-            Media media = new Media(id, TVMazeDTO.Id, TVMazeDTO.Rating.Average, TVMazeDTO.Name, TVMazeDTO.Genres.ToArray(), TVMazeDTO.Status, TVMazeDTO.Premiered, TVMazeDTO.Network.Name, TVMazeDTO.Image.Medium, TVMazeDTO.Summary, mediaIn.Type);
+            List<Review> reviews = new List<Review>();
+            if (mediaIn.Reviews.Length > 0) {
+                foreach (var r in mediaIn.Reviews) {
+                    reviews.Add(new Review(r.Subject, r.Score, r.Description));
+                }
+            }
+
+            Media media = new Media(id, TVMazeDTO.Id, TVMazeDTO.Rating.Average, TVMazeDTO.Name, TVMazeDTO.Genres.ToArray(), TVMazeDTO.Status, TVMazeDTO.Premiered, TVMazeDTO.Network.Name, TVMazeDTO.Image.Medium, TVMazeDTO.Summary, mediaIn.Type, reviews.ToArray());
 
             this._repo.Update(id, media);
         }
