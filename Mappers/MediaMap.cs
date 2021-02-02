@@ -15,7 +15,8 @@ namespace HobbyApp.Mappers {
                 media.Premiered,
                 media.Network,
                 media.Picture,
-                media.Summary
+                media.Summary,
+                media.Type
             );
         }
     }
