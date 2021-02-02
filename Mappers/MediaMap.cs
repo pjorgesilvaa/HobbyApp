@@ -13,14 +13,7 @@ namespace HobbyApp.Mappers {
 
             return new MediaDTO(
                 media.Id,
-                media.Score,
-                media.Name,
-                media.Genres,
-                media.Status,
-                media.Premiered,
-                media.Network,
-                media.Picture,
-                media.Summary,
+                media.ExternalApiId,
                 media.Type,
                 Array.ConvertAll(media.Reviews, delegate(Review r) {return rm.ToDTO(r);})
             );

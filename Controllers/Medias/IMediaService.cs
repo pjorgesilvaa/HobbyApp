@@ -8,7 +8,7 @@ namespace HobbyApp.Controllers.Medias {
     public interface IMediaService {
         List<MediaDTO> GetAll();
         MediaDTO GetByID(string id);
-        Task<MediaDTO> Create(CreateMediaDTO ctDTO);
+        MediaDTO Create(CreateMediaDTO ctDTO);
         void Update(string id, CreateMediaDTO tIn);
         void RemoveByID(string id);
     }

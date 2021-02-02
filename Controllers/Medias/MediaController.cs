@@ -30,9 +30,9 @@ namespace HobbyApp.Controllers.Medias {
         }
 
         [HttpPost]
-        public async Task<ActionResult<MediaDTO>> Create(CreateMediaDTO createMedia) {
+        public ActionResult<MediaDTO> Create(CreateMediaDTO createMedia) {
             try {
-                MediaDTO media = await _MediaService.Create(createMedia);
+                MediaDTO media = _MediaService.Create(createMedia);
 
                 return CreatedAtRoute("GetMedia", new { id = media.Id.ToString() }, "»»» Media successfully created! «««");
             } catch (Exception ex) {

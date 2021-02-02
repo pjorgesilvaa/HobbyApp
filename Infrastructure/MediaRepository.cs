@@ -19,12 +19,12 @@ namespace HobbyApp.Infrastructure {
             _medias = database.GetCollection<Media>(settings.MediasCollectionName);
 
 
-            var options = new CreateIndexOptions() { Unique = true };
-            var field = new StringFieldDefinition<Media>("TVMazeId");
+            /* var options = new CreateIndexOptions() { Unique = true };
+            var field = new StringFieldDefinition<Media>("ExternalApiId");
             var indexDefinition = new IndexKeysDefinitionBuilder<Media>().Ascending(field);
 
             var indexModel = new CreateIndexModel<Media>(indexDefinition,options);
-            _medias.Indexes.CreateOne(indexModel);
+            _medias.Indexes.CreateOne(indexModel); */
 
         }
 
@@ -39,7 +39,7 @@ namespace HobbyApp.Infrastructure {
                 _medias.InsertOne(media);
             } catch(MongoWriteException ex){
                 Console.WriteLine(ex);
-                throw new BusinessRuleValidationException(media.Name + " already seen.");
+                throw new BusinessRuleValidationException(media.ExternalApiId + " already seen.");
             }
             
         }
