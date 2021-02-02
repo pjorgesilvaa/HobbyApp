@@ -13,6 +13,9 @@ using HobbyApp.Infrastructure.Shared;
 using HobbyApp.Mappers;
 using HobbyApp.Services.Books;
 
+using HobbyApp.Controllers.Medias;
+using HobbyApp.Services.Medias;
+
 namespace HobbyApp {
     public class Startup {
         public Startup(IConfiguration configuration) {
@@ -75,6 +78,10 @@ namespace HobbyApp {
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IBookMap, BookMap>();
             services.AddTransient<IBookService, BookService>();
+
+            services.AddTransient<IMediaRepository, MediaRepository>();
+            services.AddTransient<IMediaMap, MediaMap>();
+            services.AddTransient<IMediaService, MediaService>();
         }
     }
 }
