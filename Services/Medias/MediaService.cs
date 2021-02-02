@@ -60,7 +60,9 @@ namespace HobbyApp.Services.Medias {
                 }
             }
 
-            Media media = new Media(id, mediaIn.TVMazeId, mediaIn.Type, reviews.ToArray());
+            Media media = this._repo.GetByID(id);
+
+            media.ChangeReviews(reviews.ToArray());
 
             this._repo.Update(id, media);
         }

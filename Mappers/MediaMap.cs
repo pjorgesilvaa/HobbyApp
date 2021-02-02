@@ -15,7 +15,9 @@ namespace HobbyApp.Mappers {
                 media.Id,
                 media.ExternalApiId,
                 media.Type,
-                Array.ConvertAll(media.Reviews, delegate(Review r) {return rm.ToDTO(r);})
+                Array.ConvertAll(media.Reviews, delegate(Review r) {return rm.ToDTO(r);}),
+                media.CreatedAt,
+                media.LastUpdated
             );
         }
     }
