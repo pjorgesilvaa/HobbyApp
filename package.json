@@ -1,0 +1,10 @@
+{
+    "name": "hobbyapp",
+    "version": "1.0.0",
+    "description": "HobbyApp",
+    "main": "Program.cs",
+    "scripts": {
+        "build": "dotnet build",
+        "start": "dotnet run"
+    }
+}
